@@ -67,6 +67,31 @@ class Tree{
     }
   }
 
+  levelOrder(callback) {
+    const result = [];
+    const queue = [];
+    if (!this.root) return result;
+
+    queue.push(this.root);
+    while (queue.length > 0) {
+      const node = queue.shift();
+      result.push(node.data);
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+
+      if (callback) {
+        callback(node);
+      }
+    }
+
+    return result;
+  }
+
   findMinNode(node) {
     let current = node;
     while (current.left !== null) {
@@ -75,7 +100,9 @@ class Tree{
     return current;
   }
 }
-
+function print(item){
+  console.log(item.data);
+}
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
@@ -98,3 +125,5 @@ bst.remove(bst.root,5);
 prettyPrint(bst.root);
 bst.insert(bst.root,5);
 console.log(bst.find(bst.root,5));
+console.log(bst.levelOrder());
+//bst.levelOrder(console.log);
