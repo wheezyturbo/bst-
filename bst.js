@@ -92,6 +92,53 @@ class Tree{
     return result;
   }
 
+  inorder(root,cb){
+    if(root == null){
+      return [];
+    }
+    if(cb){
+      this.inorder(root.left,cb);
+      cb(root);
+      this.inorder(root.right,cb);
+    }
+    else{
+      const left = this.inorder(root.left);
+      const right = this.inorder(root.right);
+      return [...left,root.data,...right];
+    }
+  }
+    preorder(root, cb) {
+    if (root === null) {
+      return [];
+    }
+    
+    if (cb) {
+      cb(root);
+      this.preorder(root.left, cb);
+      this.preorder(root.right, cb);
+    } else {
+      const left = this.preorder(root.left);
+      const right = this.preorder(root.right);
+      return [root.data, ...left, ...right];
+    }
+  }
+
+  postorder(root, cb) {
+    if (root === null) {
+      return [];
+    }
+    
+    if (cb) {
+      this.postorder(root.left, cb);
+      this.postorder(root.right, cb);
+      cb(root);
+    } else {
+      const left = this.postorder(root.left);
+      const right = this.postorder(root.right);
+      return [...left, ...right, root.data];
+    }
+  }
+
   findMinNode(node) {
     let current = node;
     while (current.left !== null) {
@@ -127,3 +174,5 @@ bst.insert(bst.root,5);
 console.log(bst.find(bst.root,5));
 console.log(bst.levelOrder());
 //bst.levelOrder(console.log);
+bst.inorder(bst.root,print);
+console.log(bst.inorder(bst.root));
