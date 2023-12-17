@@ -208,6 +208,36 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+
+function generateRandomIntegers(n, maxNumber) {
+  const randomIntegers = [];
+  for (let i = 0; i < n; i++) {
+    const randomInt = Math.floor(Math.random() * maxNumber); // Generates a random number between 0 and maxNumber - 1
+    randomIntegers.push(randomInt);
+  }
+  return randomIntegers;
+}
+
+
+
+const arr = generateRandomIntegers(99,200);
+const bst = new Tree(arr);
+//prettyPrint(bst.root);
+console.log("Is Tree Balanced?: ",bst.isBalanced());
+console.log("Preorder ",bst.preorder(bst.root));
+console.log("Postorder ",bst.postorder(bst.root));
+console.log("Inorder ",bst.inorder(bst.root));
+bst.insert(bst.root,83);
+bst.insert(bst.root,300);
+bst.insert(bst.root,400);
+//prettyPrint(bst.root);
+console.log("Is Tree Balanced?: ",bst.isBalanced());
+bst.reBalance();
+console.log("Is Tree Balanced?: ",bst.isBalanced());
+console.log("Preorder ",bst.preorder(bst.root));
+console.log("Postorder ",bst.postorder(bst.root));
+console.log("Inorder ",bst.inorder(bst.root));
+/*
 const bst = new Tree([1,2,3,3,4,5,7,9]);
 console.log(bst.root);
 prettyPrint(bst.root);
@@ -231,4 +261,4 @@ prettyPrint(bst.root);
 console.log(bst.isBalanced());
 bst.reBalance();
 prettyPrint(bst.root);
-
+*/
