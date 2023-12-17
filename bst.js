@@ -138,6 +138,32 @@ class Tree{
       return [...left, ...right, root.data];
     }
   }
+   
+  height(node){
+    if(node == null)return -1;
+    else{
+      const left = this.height(node.left);
+      const right = this.height(node.right);
+      return Math.max(left,right)+1;
+    }
+  }
+    
+  depth(root,node){
+    if(node == null) return -1;
+    let dist = -1;
+    if(root.data == node.data){
+      return dist+1;
+    }
+    dist = this.depth(root.left,node)
+    if(dist>=0){
+      return dist+1;
+    }
+    dist = this.depth(root.right,node)
+    if(dist>=0){
+      return dist+1;
+    }
+    return dist;
+  }
 
   findMinNode(node) {
     let current = node;
@@ -176,3 +202,6 @@ console.log(bst.levelOrder());
 //bst.levelOrder(console.log);
 bst.inorder(bst.root,print);
 console.log(bst.inorder(bst.root));
+prettyPrint(bst.root);
+console.log(bst.height(bst.root));
+console.log(bst.depth(bst.root,bst.root.left.left));
