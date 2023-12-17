@@ -8,6 +8,7 @@ class Node{
 
 class Tree{
   constructor(arr){
+    arr = [...new Set(arr)].sort((a,b)=>a-b);
     this.root = this.buildTree(arr,0,arr.length-1);
   }
   buildTree(arr,start,end){
@@ -164,6 +165,24 @@ class Tree{
     }
     return dist;
   }
+  isBalanced(node = this.root){
+    if(node==null){
+      return true;
+    }
+    const left = this.height(node.left);
+    const right = this.height(node.right);
+    if(Math.abs(left-right)>1){
+      return false;
+    }
+    return this.isBalanced(node.left) && this.isBalanced(node.right);
+
+  }
+   
+  reBalance(){
+    let arr = this.inorder(this.root);
+    arr = [...new Set(arr)].sort((a,b)=>a-b);
+    this.root = this.buildTree(arr,0,arr.length-1);
+  }
 
   findMinNode(node) {
     let current = node;
@@ -201,7 +220,15 @@ console.log(bst.find(bst.root,5));
 console.log(bst.levelOrder());
 //bst.levelOrder(console.log);
 bst.inorder(bst.root,print);
-console.log(bst.inorder(bst.root));
+console.log("inorder",bst.inorder(bst.root));
 prettyPrint(bst.root);
 console.log(bst.height(bst.root));
 console.log(bst.depth(bst.root,bst.root.left.left));
+bst.remove(bst.root,3);
+bst.remove(bst.root,1);
+bst.remove(bst.root,3);
+prettyPrint(bst.root);
+console.log(bst.isBalanced());
+bst.reBalance();
+prettyPrint(bst.root);
+
